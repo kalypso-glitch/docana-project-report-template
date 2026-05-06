@@ -67,11 +67,11 @@ Summarize the major outcomes of your project, reflect on the research findings, 
 
 ## Contributions
 
-| Team Member  | Contributions                                             |
-|--------------|-----------------------------------------------------------|
-| Alice Smith  | Data collection, preprocessing, model training, evaluation|                                                       |
-| Bob Johnson  | ...                                                       |
-| ...          | ...                                                       |
+| Team Member    | Contributions                                             |
+|----------------|-----------------------------------------------------------|
+| Kalypso Dimou  |                                                           |
+| Sebastian Weber| ...                                                       |
+| Cedric Crug    | ...                                                       |
 
 ## References
 
