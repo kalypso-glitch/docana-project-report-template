@@ -1,0 +1,3 @@
+# conda create -n docuAnaProject python=3.11 
+ijson==3.5.0
+nltk==3.9.4
