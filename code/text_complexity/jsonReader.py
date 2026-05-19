@@ -2,14 +2,14 @@
 import json
 import csv
 
-def read_json_file(file_path, mapping_function, destination_file, iterations=None):
+def read_json_file(file_path: str, csv_function: callable, destination_file: str, iterations: int = None):
     """
-    Read a newline-delimited JSON file and apply a mapping function to each item, saving results to a CSV file.
+    Read a newline-delimited JSON file and apply a csv function to each item, saving results to a CSV file.
     The header field names are taken from the first mapped item.
     
     Args:
         file_path: Path to the source JSON file
-        mapping_function: Function to apply to each item
+        csv_function: Function to apply to each item, result written to destination CSV file. Must return a dictionary.
         destination_file: Path where mapped results will be saved as CSV
         iterations: Maximum number of JSON objects to process. If None, process all objects.
     """
@@ -27,7 +27,7 @@ def read_json_file(file_path, mapping_function, destination_file, iterations=Non
                 continue
 
             item = json.loads(line)
-            mapped_item = mapping_function(item)
+            mapped_item = csv_function(item)
             if not isinstance(mapped_item, dict):
                 raise ValueError("Mapping function must return a dictionary")
 
@@ -38,6 +38,9 @@ def read_json_file(file_path, mapping_function, destination_file, iterations=Non
 
             csv_writer.writerow(mapped_item)
             item_count += 1
+
+            if item_count % 10000 == 0:
+                print(f"Processed {item_count} items...")
 
             if iterations is not None and item_count >= iterations:
                 break
