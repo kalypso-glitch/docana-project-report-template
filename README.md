@@ -25,7 +25,7 @@ strengthening the community of individual Subreddits and Reddit as a meta-commun
 (Mucan & Özgüven, 2022)
 "Social media websites are designed to be widely accessible and initially attract homogeneous populations, so it is not uncommon
 to find groups using websites to segregate themselves according to nationality, age, educational level, or other factors that typically segment society, even if that was not the intention of the designers (Boyd & Ellison, 2008) Boyd, D., & Ellison, N. (2008). Social network sites: Definition, history, and scholarship. Journal of Computer-Mediated Communication, 13, 210-230. http://doi.org/gzn"
-"it was found that as levels of education and income increase social media use also increases." also backed by (Hruska & Maresova, 2020)
+"it was found that as levels of education and income increase social media use also increases." also backed by (Hruška & Maresova, 2020)
 
 ## Dataset
 
@@ -81,7 +81,7 @@ Summarize the major outcomes of your project, reflect on the research findings, 
 | Kalypso Dimou  | Documentation     ...                                     |
 
 ## References
-Carrie Moore and Lisa Chuang. 2017. $${\color{blue}Redditors Revealed: Motivational Factors of the Reddit Community}$$. 10.24251/HICSS.2017.279. 
+Carrie Moore and Lisa Chuang. 2017. $${\color{blue}Redditors \space Revealed:\space Motivational\space Factors\space of\space the\space Reddit\space Community}$$. 10.24251/HICSS.2017.279. 
 
 Jan Hruška and Petra Maresova. 2020. $${\color{blue}Use of Social Media Platforms among Adults in the United States—Behavior on Social Media}$$. Societies. _10_. 10.3390/soc10010027. 
 
