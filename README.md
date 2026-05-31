@@ -59,7 +59,7 @@ To calculate the education level of the Reddit users, the Gunning fog index was 
 <img width="500" height="77" alt="{B7350756-3256-43AF-A810-0D6B69B0173E}" src="https://github.com/user-attachments/assets/45bdc065-08da-4b2a-8c92-1f9a86c777c2" /> 
 
 
-First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit_id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'readability_index'. The 'readablity' term may be a bit misleading, in light of its range being 6 to 17. The higher the number the more years of formal education  are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004).
+First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit_id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'readability_index'. The 'readablity' term may be a bit misleading, in light of its range being 6 to 17. The higher the number the more years of formal education  are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004). Gunning himself wrote (1969), twenty years after coming up with the formula, that the index is a "simple warning system" for writers, journalists and editors to keep their work in check, and never made a claim for it to be a decisive indicator for one's education level.
 
 For the cleaning of the data, non Latin alphabet characters were ignored, as well numeric values, using the regular expression (r'\w+').
 
@@ -83,12 +83,14 @@ Summarize the major outcomes of your project, reflect on the research findings, 
 ## References
 Carrie Moore and Lisa Chuang. 2017. $${\color{blue}Redditors \space Revealed:\space Motivational\space Factors\space of\space the\space Reddit\space Community}$$. 10.24251/HICSS.2017.279. 
 
-Jan Hruška and Petra Maresova. 2020. $${\color{blue}Use of Social Media Platforms among Adults in the United States—Behavior on Social Media}$$. Societies. _10_. 10.3390/soc10010027. 
+Jan Hruška and Petra Maresova. 2020. $${\color{blue}Use\space of\space Social\space Media\space Platforms\space among\space Adults \spacein\space the\space United \space States—Behavior\space on\space Social \spaceMedia}$$. Societies. _10_. 10.3390/soc10010027. 
 
-Martin Potthast, Michael V{"o}lske, Benno Stein and Shahbaz Syed. 2017.  $${\color{blue}{TL};{DR}: Mining {R}eddit to Learn Automatic Summarization}$$ . In _Proceedings of the Workshop on New Frontiers in Summarization_, Association for Computational Linguistics, Copenhagen, Denmark, September 2017. pages 59-63. https://www.aclweb.org/anthology/W17-4508
+Martin Potthast, Michael V{"o}lske, Benno Stein and Shahbaz Syed. 2017.  $${\color{blue}{TL};{DR}:\space Mining\space {R}eddit\space to\space Learn\space Automatic\space Summarization}$$ . In _Proceedings of the Workshop on New Frontiers in Summarization_, Association for Computational Linguistics, Copenhagen, Denmark, September 2017. pages 59-63. https://www.aclweb.org/anthology/W17-4508
 
-Burcu Mucan and Nihan Özgüven. 2013. $${\color{blue}The Relationship Between Personality Traits and Social Media Use}$$. Social Behavior and Personality, _41(3)_, pages 517-528. http://dx.doi.org/10.2224/sbp.2013.41.3.517.
+Burcu Mucan and Nihan Özgüven. 2013. $${\color{blue}The\space Relationship\space Between\space Personality\space Traits\space and\space Social \spaceMedia\space Use}$$. Social Behavior and Personality, _41(3)_, pages 517-528. http://dx.doi.org/10.2224/sbp.2013.41.3.517.
 
-William H. DuBay. 2004. $${\color{blue}Judges Scold Lawyers for Bad Writing}$$. Plain Language at Work Newsletter _(8)_. Impact Information. Archived from the original on 24 December 2013.
+Gunning, R. (1969). $${\color{blue}The\space Fog\space Index\space After\space Twenty\space Years}$$. Journal of Business Communication, _6(2)_, pages 3-13. https://doi.org/10.1177/002194366900600202
+
+William H. DuBay. 2004. $${\color{blue}Judges\space Scold\space Lawyers\space for\space Bad\space Writing}$$. Plain Language at Work Newsletter _(8)_. Impact Information. Archived from the original on 24 December 2013.
 
 The Gunning's Fog Index (or FOG) Readability Formula. Readability Formulas.
