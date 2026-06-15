@@ -28,8 +28,8 @@ top10.to_csv('c:\\Users\\kassi\\OneDrive\\Έγγραφα\\master\\(3) sose 26\\D
  
 #plotting top 10 users
 
-x = top10['count_posts'][1:] #skipping the first one
-y = top10['avg_wo_outliers'][1:]  #also skip the first one
+x = top10['count_posts']
+y = top10['avg_wo_outliers']
 
 plt.plot(x,y)
 plt.xlabel('Number of posts')
