@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 
 #loading the user's data
-df = pd.read_csv(r"C:\Users\kassi\OneDrive\Έγγραφα\master\(3) sose 26\Document analysis\final project\user_stats.csv")
+df = pd.read_csv(r"data/user_stats.csv")
 dfsorted=df.sort_values(by='count_posts', ascending=False)
 
 df = dfsorted.iloc[2:] #removing the top 2 users as they are likely bots
