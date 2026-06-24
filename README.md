@@ -1,5 +1,5 @@
 
-# Bookworm and/or Redditworm?: a Deep Dive into Redditors' Eloquency and Education Level
+# Bookworm and/or Redditworm?: a Deep Dive into Redditors' Eloquency
 
 _Group members: Sebastian Weber, Cedric Krug, Kalypso Dimou_
 
