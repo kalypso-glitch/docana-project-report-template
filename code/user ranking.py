@@ -1,51 +1,120 @@
+import os
+import numpy as np
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from scipy import stats
-
-#loading the user's data
-df = pd.read_csv(r"data/user_stats.csv")
-dfsorted=df.sort_values(by='count_posts', ascending=False)
-
-df = dfsorted.iloc[2:] #removing the top 2 users as they are likely bots
-
-#plotting for all users
-x = df['count_posts'] 
-y = df['avg_wo_outliers']  
-
-plt.scatter(x, y, color='blue', marker='x')
-plt.xlabel('Number of posts')
-plt.ylabel('Average Post Complexity')
-plt.show()
-
-#linear regression_figure 2
-slope, intercept, r, p, std_err = stats.linregress(x, y)
-
-def myfunc(x):
-  return slope * x + intercept
-
-mymodel = list(map(myfunc, x))
-
-plt.scatter(x, y)
-plt.plot(x, mymodel)
-plt.xlabel('Number of posts')
-plt.ylabel('Post Complexity')
-plt.show()
-
-#sorting top 10 users by posts
-top10=df.nlargest(10, 'count_posts')
-#print(top10)
+import statsmodels.api as sm
 
 
-#saving in a new csv file
-#top10.to_csv('c:\\Users\\kassi\\OneDrive\\Έγγραφα\\master\\(3) sose 26\\Document analysis\\final project\\top10users.csv', index=False)
- 
-#plotting top 10 users_figure 3
+output_dir = os.path.join(os.path.dirname(__file__), "figures")
+os.makedirs(output_dir, exist_ok=True)
 
-x = top10['count_posts']
-y = top10['avg_wo_outliers']
 
-plt.plot(x,y)
-plt.xlabel('Number of posts')
-plt.ylabel('Average Post Complexity')
+df = pd.read_csv(
+    r"data\user_stats.csv")
 
-plt.show()
+
+# Remove missing values
+df = df.dropna(subset=["count_posts", "avg_capped_25"])
+
+#removing the two highest posting users (possible bots)
+df = df.sort_values(by="count_posts", ascending=False)
+df = df.iloc[2:].copy()
+
+
+
+# Independent variable
+df["log_posts"] = np.log1p(df["count_posts"])
+
+#dependent variable
+complexity = df["avg_capped_25"]
+
+#descriptive statistics
+print(df[["count_posts", "log_posts", "avg_capped_25"]].describe())
+
+
+#linear regression
+X = sm.add_constant(df["log_posts"])
+model = sm.OLS(complexity, X).fit()
+
+print(model.summary())
+
+# Scatter plot with regression line
+
+plt.figure(figsize=(8, 6))
+
+plt.scatter(
+    df["log_posts"],
+    complexity,
+    alpha=0.02,
+    s=5
+)
+
+predicted = model.predict(X)
+
+plt.plot(
+    df["log_posts"],
+    predicted,
+    color="red",
+    linewidth=2
+)
+
+plt.xlabel("Log(Number of Posts + 1)")
+plt.ylabel("Average Gunning Fog Index (Capped at 25)")
+plt.title("Linear Regression")
+
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(output_dir, "linear_regression.png"),
+    dpi=300
+)
+
+plt.close()
+
+# Distribution of post counts
+
+plt.figure(figsize=(8, 6))
+
+plt.hist(
+    df["count_posts"],
+    bins=100
+)
+
+plt.xlabel("Number of Posts")
+plt.ylabel("Number of Users")
+plt.title("Distribution of User Post Counts")
+
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(output_dir, "post_count_distribution.png"),
+    dpi=300
+)
+
+plt.close()
+
+# Distribution of complexity
+
+plt.figure(figsize=(8, 6))
+
+plt.hist(
+    complexity,
+    bins=50
+)
+
+plt.xlabel("Average Gunning Fog Index (Capped at 25)")
+plt.ylabel("Number of Users")
+plt.title("Distribution of Average Post Complexity")
+
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(output_dir, "complexity_distribution.png"),
+    dpi=300
+)
+
+plt.close()
+
+#print("\nAnalysis completed successfully.")
