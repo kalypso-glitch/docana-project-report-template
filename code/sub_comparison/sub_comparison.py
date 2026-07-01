@@ -16,8 +16,8 @@ def top_x_subreddits(x: int) -> list[dict]:
 def subs_with_posts_greater_than(x: int) -> list[dict]:
     return [row for row in sub_data if int(row["count_posts"]) > x] 
 
-def sort_subs_by_avg_wo_outliers(subs: list[dict]) -> list[dict]:
-    return sorted(subs, key=lambda row: float(row["avg_wo_outliers"]), reverse=True)
+def sort_subs_by_avg_capped_25(subs: list[dict]) -> list[dict]:
+    return sorted(subs, key=lambda row: float(row["avg_capped_25"]), reverse=True)
 
 def find_all_posts_in_subreddit(subreddit_name: str) -> list[dict]:
     return [row for row in mapped_posts_data if row["subreddit"] == subreddit_name]
@@ -52,15 +52,15 @@ def top_10_subs_by_posts():
     for subreddit in top_10_subreddits:
         print(f"Subreddit: {subreddit}")
 
-def top_and_bottom_ten_by_avg_wo_outliers():
+def top_and_bottom_ten_by_avg_capped_25():
     subs_with_more_than_1000_posts = subs_with_posts_greater_than(1000)
-    # sort by avg_wo_outliers
-    sorted_subs = sort_subs_by_avg_wo_outliers(subs_with_more_than_1000_posts)
+    # sort by avg_capped_25
+    sorted_subs = sort_subs_by_avg_capped_25(subs_with_more_than_1000_posts)
     print("Number of Subreddits with more than 1000 posts:" + str(len(subs_with_more_than_1000_posts)))
-    print("Top 10 Subreddits with more than 1000 posts sorted by avg_wo_outliers:")
+    print("Top 10 Subreddits with more than 1000 posts sorted by avg_capped_25:")
     for subreddit in sorted_subs[:10]:
         print(f"{subreddit}")    
-    print("Bottom 10 Subreddits with more than 1000 posts sorted non-ascendingly by avg_wo_outliers:")
+    print("Bottom 10 Subreddits with more than 1000 posts sorted non-ascendingly by avg_capped_25:")
     least_complex_subs = sorted_subs[-10:]
     for subreddit in least_complex_subs[::-1]:
         print(f"{subreddit}")    
@@ -112,7 +112,7 @@ def complexity_to_popularity_correlation():
     complexity_popularity = []
     relevant_subreddits = subs_with_posts_greater_than(50)
     for subreddit in relevant_subreddits:
-        complexity = float(subreddit["avg_wo_outliers"])
+        complexity = float(subreddit["avg_capped_25"])
         popularity = int(subreddit["count_posts"])
         complexity_popularity.append((complexity, popularity))
     # sort by complexity
@@ -146,31 +146,44 @@ def standard_deviation_of_top_10_subreddits():
         print(f"Subreddit: {subreddit['subreddit']}, Standard Deviation of Readability Index: {std_dev:.2f}")
 
 def standard_deviation_of_most_complex_subreddits():
-    top_10_subreddits = ["argentina", "AskHistorians", "philosophy", "askscience", "Anarchism", "PoliticalDiscussion", "Anarcho_Capitalism", "history", "europe", "Economics"]
+    top_10_subreddits = ["argentina", "AskHistorians", "philosophy", "askscience", "Anarchism", "PoliticalDiscussion", "history", "Anarcho_Capitalism", "Economics",  "europe"]
     for subreddit in top_10_subreddits:
         std_dev = standard_deviation_of_posts_in_subreddit(subreddit)
         print(f"Subreddit: {subreddit}, Standard Deviation of Readability Index: {std_dev:.2f}")
 
 def standard_deviation_of_least_complex_subreddits():
-    least_complex_subreddits = ["breakingmom", "circlejerk", "cripplingalcoholism", "Random_Acts_Of_Amazon", "C25K", "golf", "amiugly", "stopsmoking", "TalesFromRetail", "cats"]
+    least_complex_subreddits = ["breakingmom", "Random_Acts_Of_Amazon", "circlejerk", "cripplingalcoholism", "C25K", "golf", "amiugly", "TalesFromRetail", "discgolf", "TalesFromYourServer"]
     for subreddit in least_complex_subreddits:
         std_dev = standard_deviation_of_posts_in_subreddit(subreddit)
         print(f"Subreddit: {subreddit}, Standard Deviation of Readability Index: {std_dev:.2f}")
 
-
+def avg_complexity_of_subreddit(subreddit_name: str) -> float:
+    posts_in_subreddit = find_all_posts_in_subreddit(subreddit_name)
+    complexities = [float(post["readability_index"]) for post in posts_in_subreddit]
+    complexities_max_25 = [c for c in complexities if c <= 25]
+    if len(complexities) == 0:
+        print(f"No posts found in subreddit: {subreddit_name}")
+    print(f"Average complexity in {subreddit_name}: {sum(complexities) / len(complexities)}, ({len(complexities)} posts) (sum of complexities: {sum(complexities)})")
+    print(f"Average complexity in {subreddit_name} (capped at 25): {sum(complexities_max_25) / len(complexities_max_25)} ({len(complexities_max_25)} posts capped at 25) (sum of complexities capped at 25: {sum(complexities_max_25)})")
 
 
 # top_10_subs_by_posts()
-# top_and_bottom_ten_by_avg_wo_outliers()
+# top_and_bottom_ten_by_avg_capped_25()
 # percentage_histogram_for_3_top_subs()
 # print_average_complex_word_sentence_length_top_3()
 # percentage_histogram_for_most_complex_subreddit()
 # print_average_complex_word_sentence_length_most_complex()
 # print_excel_ready_complexity_to_popularity_correlation_to_csv()
-standard_deviation_of_top_10_subreddits()
+# standard_deviation_of_top_10_subreddits()
 standard_deviation_of_most_complex_subreddits()
+print()
 standard_deviation_of_least_complex_subreddits()
 
+
+
+# Debug
+# avg_complexity_of_subreddit("AskHistorians")
+# avg_complexity_of_subreddit("circlejerk")
 
 
 
