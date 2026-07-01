@@ -2,11 +2,20 @@
 
 _Eloquent Foggers: Sebastian Weber, Cedric Krug, Kalypso Dimou_
 
+TODO: -WRITE IN THE SET-UP SECTION (SEBASTIAN)
+-WRITE IN THE EXPERIMENTS (CEDRIC)
+-REDO THE STATISTICS WITH NEW DATABASE (KALYPSO)
+-WRITE DISCUSSION AND CONCLUSION FOR YOUR OWN PART (EVERYONE)
+-WRITE CRITIQUES IN THE CONCLUSION (CEDRIC)
+-PROOFREAD EVERYTHING (EVERYONE)
+
 ## Introduction
 
 The social media platform of Reddit sterted as the place where people go to ask questions, find community and exchange advise and it has evolved into a meta-community. Users of such a community form distinct and niche subgroups (subreddits) which cross-interact and together comprise the recognisable-from-outsiders Reddit entity (Moore & Chuang, 2017). Socializing has been shown to be the number one reason behind Reddit posting, which can be attributed to anticipatory socialization defined like this:
 
     "Anticipatory socialization means that users obtain social gratifications from sharing original or curated content with other users. Aggregators, like Reddit, are virtual communities where sharing content facilitates social connections. [...] Users also help to enforce community standards through commenting (calling out trolls or those who are reposting content from another user and claiming it as original); thereby, strengthening the community of individual Subreddits and Reddit as a meta-community. Self-policing when it comes to agreed-upon behaviors is a crucial part of building and maintaining communities, both in person and online." (Moore & Chuang, 2017)
+
+> Anticipatory socialization means that users obtain social gratifications from sharing original or curated content with other users. Aggregators, like Reddit, are virtual communities where sharing content facilitates social connections. [...] Users also help to enforce community standards through commenting (calling out trolls or those who are reposting content from another user and claiming it as original); thereby, strengthening the community of individual Subreddits and Reddit as a meta-community. Self-policing when it comes to agreed-upon behaviors is a crucial part of building and maintaining communities, both in person and online. (Moore & Chuang, 2017)
 
 Like-minded individuals tend to form homogenous groups that reflect societal fragmentation. Boyd and Ellison (2008) suggest that it is common for social media users "to segregate themselves according to nationality, age, educational level, or other factors [...] even if that was not the intention of the designers". Our project looks into these subgroupings of redditors and seeks to find out the role that educational level plays in Reddit posting through the lens of Natural Language Processing. The literature indicates that as income and levels of education increases, social media increases as well (Mucan & Özgüven, 2022; Hruška & Maresova, 2020). It would be near impossible to guess one's education level employing solely NLP techniques, so the term 'eloquency' will be prefered from now on. This study will focus on the following questions:
 
@@ -19,9 +28,9 @@ Like-minded individuals tend to form homogenous groups that reflect societal fra
 
 The dataset used is Webis-TLDR-17 corpus which was yielded by a large Reddit crawl. The corpus consists of 3,848,330 preprocessed posts (submissions and comments from multiple subreddits in the time period 2006-2016). Each post is comprised of strings for 'author', 'body', 'normalizedBody', 'content', 'summary', 'subreddit' and 'subreddit_id' with the average word count being 270 words for 'content' and 28 words for 'summary'.
 
-For the purposes of the current research, we mainly used the features of 'author', 'subreddit' and 'content' and got rid of summaries completely. To reduce the size of the data, we filtered out posts with less than 100 words(_right?_), subreddits with less 50 posts and users exceeding 1000 contributions as it is highly likely that they were automated accounts. Resolving the latter issue is easier said than done, leaving room for doubt regarding all Reddit research results.
+For the purposes of the current research, we mainly used the features of 'author', 'subreddit' and 'content' and got rid of summaries completely. To reduce the size of the data, we filtered out subreddits with less 50 posts (small sample size) and users exceeding 1000 contributions as it is highly likely that they were automated accounts. Resolving the latter issue is easier said than done, leaving room for doubt regarding all Reddit research results.
 
-Our compiled dataset contained information on 1,462,079 Reddit users, including the total number of posts made by each user and the user's average Gunning Fog Index. To reduce the influence of extreme observations, the average Gunning Fog Index had previously been arbitrarily capped at a maximum value of 25.
+Our compiled dataset contained information on 1,462,079 Reddit users, including the total number of posts made by each user and the user's average Gunning Fog Index. To reduce the influence of extreme observations, the average Gunning Fog Index had previously been capped at a maximum value of 25.
 
 ## Methods
 
@@ -47,6 +56,8 @@ To calculate the education level of the Reddit users, the Gunning fog index was 
 <img width="500" height="77" alt="{B7350756-3256-43AF-A810-0D6B69B0173E}" src="https://github.com/user-attachments/assets/45bdc065-08da-4b2a-8c92-1f9a86c777c2" />
 
 First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit_id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'complexity_index'. The 'complexity' term may be a bit misleading, in light of its range being 6 to 17. The higher the number the more years of formal education are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004). Gunning himself wrote (1969), twenty years after coming up with the formula, that the index is a "simple warning system" for writers, journalists and editors to keep their work in check, and never made a claim for it to be a decisive indicator for one's education level.
+
+First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit*id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'complexity_index'. \_The 'complexity' term may be a bit misleading, in light of its range being 0 to infinity*. The higher the number the more years of formal education are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004). Gunning himself wrote (1969), twenty years after coming up with the formula, that the index is a "simple warning system" for writers, journalists and editors to keep their work in check, and never made a claim for it to be a decisive indicator for one's education level.
 
 For the cleaning of the data, non Latin alphabet characters were ignored, as well numeric values, using the regular expression (r'\w+').
 ...

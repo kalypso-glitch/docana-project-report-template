@@ -45,13 +45,13 @@ print(f"Count Subreddits >50 Posts: {len(df_big)}")
 # 2. Globale Statistik
 # ---------------------------------------------------------
 print("\n--- Globale Statistics ---")
-print(df_big[["avg", "p90", "p10", "avg_wo_outliers"]].describe())
+print(df_big[["avg", "avg_capped_25", "p90", "p10", "avg_wo_outliers"]].describe())
 
 # ---------------------------------------------------------
 # 3. Verteilungen
 # ---------------------------------------------------------
 plt.figure(figsize=(10,5))
-sns.histplot(df_big["avg"], kde=True, bins=40)
+sns.histplot(df_big["avg_capped_25"], kde=True, bins=40)
 plt.title("Distribution of the avg-Readability score")
 plt.xlabel("avg")
 plt.ylabel("Frequency")
@@ -116,7 +116,7 @@ plt.figure(figsize=(10,6))
 sns.regplot(
     data=df_big,
     x=np.log(df_big["count_posts"]),
-    y="avg",
+    y="avg_capped_25",
     scatter_kws={"alpha":0.3}
 )
 plt.title("Context: Activity vs. Writing Complexity")
@@ -126,8 +126,9 @@ plt.tight_layout()
 #plt.show()
 save_fig_from_title()
 plt.close()
-corr = np.corrcoef(np.log(df_big["count_posts"]), df_big["avg"])[0,1]
+corr = np.corrcoef(np.log(df_big["count_posts"]), df_big["avg_capped_25"])[0,1]
 print(f"\nCorrelation log(count_posts) vs avg: {corr:.3f}")
+
 
 # ---------------------------------------------------------
 # 7. Outlier-Analyse
@@ -146,6 +147,19 @@ print("\nSubreddits with the strongest outlier effect:")
 print(df_big.nlargest(10, "outlier_diff")[["subreddit", "outlier_diff"]])
 
 # ---------------------------------------------------------
+# 8. Distribution-Analyse
+# ---------------------------------------------------------
+plt.figure(figsize=(10,5))
+sns.histplot(df_big["avg_capped_25"], kde=True, bins=40, color="purple")
+plt.title("Distribution of avg_capped_25 (capped at 25)")
+plt.xlabel("avg_capped_25")
+plt.ylabel("Frequency")
+plt.tight_layout()
+save_fig_from_title()
+plt.close()
+
+
+# ---------------------------------------------------------
 # Markdown: Anzahl Subreddits
 # ---------------------------------------------------------
 with open(md_file, "a", encoding="utf-8") as f:
@@ -155,7 +169,7 @@ with open(md_file, "a", encoding="utf-8") as f:
 # ---------------------------------------------------------
 # Markdown: Globale Statistik
 # ---------------------------------------------------------
-stats = df_big[["avg", "p90", "p10", "avg_wo_outliers"]].describe()
+stats = df_big[["avg", "avg_capped_25", "p90", "p10", "avg_wo_outliers"]].describe()
 
 # DataFrame → Markdown-Tabelle
 stats_md = stats.to_markdown()

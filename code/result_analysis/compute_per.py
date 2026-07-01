@@ -39,6 +39,15 @@ def agg_subreddit(df: pd.DataFrame) -> pd.DataFrame:
           .values
     )
 
+    result["avg_capped_25"] = (
+        df.groupby("subreddit")["readability_index"]
+        .apply(lambda s: s[s <= 25].mean())
+        .values
+    )
+
+    #result["avg_capped_25"] = result["avg"].clip(upper=25)
+
+
     return result
 
 
@@ -61,6 +70,14 @@ def agg_user(df: pd.DataFrame) -> pd.DataFrame:
           .apply(lambda s: remove_outliers(s).mean())
           .values
     )
+
+    
+    result["avg_capped_25"] = (
+    df.groupby("author")["readability_index"]
+      .apply(lambda s: s[s <= 25].mean())
+      .values
+    )
+
 
     return result
 
@@ -88,37 +105,51 @@ def compute_user_sub_similarity(df, user_stats, sub_stats):
 # ---------------------------------------------------------
 # Main
 # ---------------------------------------------------------
-def main():
-    # relativer Pfad zur CSV-Datei
+def main(update_sub=False, update_user=True, update_similarity=False):
     base_path = os.path.join(os.path.dirname(__file__), "../../results/")
-    file_path = os.path.join(os.path.dirname(__file__), "../../results/mapped_reddit_posts.csv")
-    # CSV laden
-    df = pd.read_csv(file_path)
+    file_path = os.path.join(base_path, "mapped_reddit_posts.csv")
 
+    df = pd.read_csv(file_path, engine="pyarrow")
+
+    # ---------------------------------------------------------
     # Subreddit-Stats
-    sub_stats = agg_subreddit(df)
-    subreddit_stats_path = os.path.join(base_path, "subreddit_stats.csv")
-    sub_stats.to_csv(subreddit_stats_path, index=False)
+    # ---------------------------------------------------------
+    if update_sub:
+        sub_stats = agg_subreddit(df)
+        #sub_stats["avg_capped_25"] = sub_stats["avg"].clip(upper=25)
 
+        sub_stats_path = os.path.join(base_path, "subreddit_stats.csv")
+        sub_stats.to_csv(sub_stats_path, index=False)
+        print("Updated: subreddit_stats.csv")
+
+    # ---------------------------------------------------------
     # User-Stats
-    user_stats = agg_user(df)
-    user_stats_path = os.path.join(base_path, "user_stats.csv")
-    user_stats.to_csv(user_stats_path, index=False)
+    # ---------------------------------------------------------
+    if update_user:
+        user_stats = agg_user(df)
+        #user_stats["avg_capped_25"] = user_stats["avg"].clip(upper=25)
 
-    # User–Subreddit Vergleich
-    similarity = compute_user_sub_similarity(df, user_stats, sub_stats)
-    user_sub_similarity_path = os.path.join(base_path, "user_sub_similarity.csv")
-    similarity.to_csv(user_sub_similarity_path, index=False)
+        user_stats_path = os.path.join(base_path, "user_stats.csv")
+        user_stats.to_csv(user_stats_path, index=False)
+        print("Updated: user_stats.csv")
 
-    # Globale Werte
-    global_avg = df["readability_index"].mean()
-    global_p90 = df["readability_index"].quantile(0.90)
-    global_p10 = df["readability_index"].quantile(0.10)
+    # ---------------------------------------------------------
+    # Similarity (braucht beide Stats)
+    # ---------------------------------------------------------
+    if update_similarity:
+        # Falls nicht bereits oben berechnet → neu laden
+        if not update_user:
+            user_stats = pd.read_csv(os.path.join(base_path, "user_stats.csv"))
+        if not update_sub:
+            sub_stats = pd.read_csv(os.path.join(base_path, "subreddit_stats.csv"))
 
-    print("Global Average:", global_avg)
-    print("Global 90th Percentile:", global_p90)
-    print("Global 10th Percentile:", global_p10)
+        similarity = compute_user_sub_similarity(df, user_stats, sub_stats)
+        similarity_path = os.path.join(base_path, "user_sub_similarity.csv")
+        similarity.to_csv(similarity_path, index=False)
+        print("Updated: user_sub_similarity.csv")
+
     print("Done.")
+
 
 
 if __name__ == "__main__":
