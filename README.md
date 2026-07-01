@@ -24,7 +24,7 @@ The dataset used is Webis-TLDR-17 corpus which was yielded by a large Reddit cra
 
 For the purposes of the current research, we mainly used the features of 'author', 'subreddit' and 'content' and got rid of summaries completely. To reduce the size of the data, we filtered out posts with less than 100 words(_right?_), subreddits with less 50 posts and users exceeding 1000 contributions as it is highly likely that they were automated accounts. Resolving the latter issue is easier said than done, leaving room for doubt regarding all Reddit research results.
 
-Our compiled dataset contained information on 1,462,079 Reddit users, including the total number of posts made by each user and the user's average Gunning Fog Index. To reduce the influence of extreme observations, the average Gunning Fog Index had previously been arbitrarily capped at a maximum value of 25.
+Our compiled dataset contained information on 1,462,079 Reddit users, including the total number of posts made by each user and the user's average Gunning Fog Index. To reduce the influence of extreme observations, the average Gunning Fog Index had previously been capped at a maximum value of 25.
 
 ## Methods
 
@@ -51,7 +51,7 @@ To calculate the education level of the Reddit users, the Gunning fog index was 
 <img width="500" height="77" alt="{B7350756-3256-43AF-A810-0D6B69B0173E}" src="https://github.com/user-attachments/assets/45bdc065-08da-4b2a-8c92-1f9a86c777c2" /> 
 
 
-First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit_id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'complexity_index'. The 'complexity' term may be a bit misleading, in light of its range being 6 to 17. The higher the number the more years of formal education  are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004). Gunning himself wrote (1969), twenty years after coming up with the formula, that the index is a "simple warning system" for writers, journalists and editors to keep their work in check, and never made a claim for it to be a decisive indicator for one's education level.
+First we needed to find the average number of sentences, words and complex words in each post and so, nine parameters were extracted in a csv file. The original features 'id', 'author', 'subreddit_id', 'subreddit' were maintained alongside the new data of 'word_count', 'syllable_count', 'complex_word_count' and 'complexity_index'. _The 'complexity' term may be a bit misleading, in light of its range being 0 to infinity_. The higher the number the more years of formal education  are needed to understand the text. The fog index is commonly used to confirm that an intended audience can easily read a text. Texts targeted to a wide audience generally need a fog index less than 12, or less than 8 for a near-universal understanding (DuBay, 2004). Gunning himself wrote (1969), twenty years after coming up with the formula, that the index is a "simple warning system" for writers, journalists and editors to keep their work in check, and never made a claim for it to be a decisive indicator for one's education level.
 
 For the cleaning of the data, non Latin alphabet characters were ignored, as well numeric values, using the regular expression (r'\w+').
 ...
@@ -82,9 +82,9 @@ It is important to remember that the Gunning Fog Index measures textual readabil
 
 | Team Member    | Contributions                                             |
 |----------------|-----------------------------------------------------------|
-| Cedric Krug    | Data cleaning , Graph plotting , Slideshow making         |
-| Sebastian Weber| Data transforming , Subreddit slicing , Slideshow making  |
-| Kalypso Dimou  | Documentation , Statistical analysis , Slideshow making   |
+| Cedric Krug    | Data transformation , Graph plotting , Slideshow + report |
+| Sebastian Weber| Data analysis , Subreddit slicing , Slideshow + report    |
+| Kalypso Dimou  | Graph plotting , Statistical analysis , Slideshow + report|
 
 ## References
 Burcu Mucan and Nihan Özgüven. 2013. The Relationship Between Personality Traits and Social Media Use. Social Behavior and Personality. _41(3)_, pages 517-528. http://dx.doi.org/10.2224/sbp.2013.41.3.517.
@@ -95,7 +95,7 @@ Danah Boyd, and Nicole Ellison. 2008. Social network sites: Definition, history,
 
 Jan Hruška and Petra Maresova. 2020. Use of Social Media Platforms among Adults in the United  States—Behavior on Social Media. Societies. _10_. 10.3390/soc10010027. 
 
-Martin Potthast, Michael V{"o}lske, Benno Stein and Shahbaz Syed. 2017.  {TL};{DR}: Mining {R}eddit to Learn Automatic Summarization . In _Proceedings of the Workshop on New Frontiers in Summarization_, Association for Computational Linguistics, Copenhagen, Denmark, September 2017. pages 59-63. https://www.aclweb.org/anthology/W17-4508
+Martin Potthast, Michael Voske, Benno Stein and Shahbaz Syed. 2017.  TL;DR: Mining {R}eddit to Learn Automatic Summarization . In _Proceedings of the Workshop on New Frontiers in Summarization_, Association for Computational Linguistics, Copenhagen, Denmark, September 2017. pages 59-63. https://www.aclweb.org/anthology/W17-4508
 
 Robert Gunning. (1969). The Fog Index After Twenty Years. Journal of Business Communication, _6(2)_, pages 3-13. https://doi.org/10.1177/002194366900600202
 
