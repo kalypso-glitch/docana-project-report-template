@@ -82,23 +82,52 @@ Several limitations should be considered when interpreting these findings. First
 
 Top 10 Subreddits (with more than 1000 posts) by average complexity (including only posts with a reasonable complexity <=25)
 
-TODO
+| Subreddit           | Avg (Capped at 25) | Avg                | Top 10%            | Bottom 10%         | Post count | Standard Deviation |
+| ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ |
+| argentina           | 16.91189310355434  | 17.829640551882818 | 23.407731683668597 | 12.861954887218046 | 1049       | 5.01               |
+| AskHistorians       | 15.813104257311885 | 15.971207666251221 | 20.133378961540565 | 11.87097435897436  | 3927       | 3.52               |
+| philosophy          | 14.904721401442288 | 15.07933687921598  | 19.516824149372923 | 10.747082149585815 | 3006       | 3.87               |
+| askscience          | 14.843364705188474 | 14.977651424697257 | 19.2353711532284   | 10.955485656036116 | 12037      | 3.54               |
+| Anarchism           | 14.779271270677052 | 14.988154471092908 | 19.565132828984616 | 10.613333333333335 | 1225       | 3.94               |
+| PoliticalDiscussion | 14.551898427682525 | 14.696669034833333 | 18.89530198091     | 10.69741573033708  | 3472       | 3.82               |
+| history             | 14.521976277662622 | 14.717220214325451 | 18.743567842123046 | 10.482205986595082 | 1093       | 4.01               |
+| Anarcho_Capitalism  | 14.481597155792546 | 14.67187915664534  | 18.92771659324523  | 10.616738916256159 | 1400       | 3.91               |
+| Economics           | 14.275991477738057 | 14.443203456117072 | 18.745789040645054 | 10.409066919122624 | 2800       | 3.70               |
+| europe              | 14.27321074246179  | 14.678790816388743 | 19.392557305195073 | 10.32501593730964  | 2039       | 4.50               |
 
-These results showcase one of the problems of the gunning fog index (and the underlying data) as the most complex subreddit in this example is r/argentina, which is a spanish foreign language subreddit. The gunning fog index however only applies to english. Because of this we are going to ignore r/argentina in further analysis.  
+These results showcase one of the problems of the gunning fog index (and the underlying data) as the most complex subreddit is r/argentina, which is a spanish foreign language subreddit. The gunning fog index however only applies to english. Because of this we are going to ignore r/argentina in further analysis.  
 Other than that the results intuitively make sense. Historians for example are university educated, in a subject with a high focus on language. The complexity of this subreddit is likely further increased as they would use a lot of names of historical figures and places, which are likely to have at least 3 syllables and would therefore be counted as complex words.  
 Similar reasoning applies to subreddits like philosophy and askscience.
 
-Most of the other top 10 subreddits are political subreddits, where posters might purposefully use more eloquent language to appear more educated (and therefore correct) and since a lot of the political subreddits are more niche they might also discuss political theory, which implies a higher level of education.
+Most of the other top 10 subreddits are political subreddits, where posters might purposefully use more eloquent language to appear more educated and since a lot of the political subreddits are more niche they might also discuss political theory, which implies a higher level of education.
 
 Bottom 10 Subreddits (with more than 1000 posts) by average complexity (including only posts with a reasonable complexity <=25)
 
-TODO
+| Subreddit             | Avg (Capped at 25) | Avg                | Top 10%            | Bottom 10%         | Post count | Standard Deviation |
+| --------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ |
+| breakingmom           | 9.955302135575247  | 10.016351467813397 | 12.818340211263472 | 7.117940661690546  | 1166       | 2.70               |
+| Random_Acts_Of_Amazon | 10.253015332190024 | 10.43059183574441  | 13.89557123079966  | 7.292047345221847  | 2363       | 3.91               |
+| circlejerk            | 10.279694607573745 | 16.307172511078733 | 16.07835902479188  | 5.469565217391305  | 2903       | 78.74              |
+| cripplingalcoholism   | 10.28905795384566  | 10.655167756914562 | 13.984180790960453 | 7.022223858133753  | 1456       | 7.37               |
+| C25K                  | 10.310585601999021 | 10.366957161390962 | 13.089321959646373 | 7.7278222222222235 | 1108       | 2.70               |
+| golf                  | 10.383047328473289 | 10.421733635174574 | 13.811393947678747 | 7.490543362534323  | 2142       | 2.84               |
+| amiugly               | 10.420919676931184 | 10.551600857592874 | 14.318765252080617 | 7.131948331270086  | 1417       | 3.41               |
+| TalesFromRetail       | 10.502048542682132 | 10.57407338258993  | 13.749487179487181 | 7.712537877007442  | 8785       | 3.17               |
+| discgolf              | 10.505104585160835 | 10.58667567350397  | 13.901107460143608 | 7.426002278423331  | 1292       | 3.13               |
+| TalesFromYourServer   | 10.515839420038127 | 10.730246298052124 | 13.601424027433614 | 7.820070067504059  | 1455       | 4.42               |
+
+r/breakingmom is a subreddit for mothers to air out their frustrations. The low complexity of posts in that subreddit is likely explained by its content being mostly rants and complaints, which are generally not written with a high level of language in mind.  
+An interesting subreddit is r/circlejerk which is a parody subreddit, imitating reddit communities. r/circlejerk both has the highest top 10% (of the bottom subreddits) and the lowest bottom 10% and an extremely high standard deviation of ~79. The extreme
 
 ## Conclusion
 
 The findings suggest that Reddit users who post more frequently tend to exhibit slightly higher average writing complexity, as measured by the capped Gunning Fog Index. This observation is consistent with the hypothesis that more active users may develop greater familiarity with written communication or participate in communities that encourage more detailed and complex discussions.However, the observed relationship is extremely small in practical terms. Although the regression model was statistically significant, it explained only 0.2% of the variance in writing complexity. This indicates that posting frequency alone is a poor predictor of the readability or complexity of users' writing.
 
 It is important to remember that the Gunning Fog Index measures textual readability rather than education directly.
+
+### TODO further research
+
+How did complexity change over time (especially with the introduction of ChatGPT)
 
 ## Contributions
 
